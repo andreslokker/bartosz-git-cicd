@@ -32,3 +32,7 @@ jobs:
         - name: Install dependencies
           run: |
             pip install -r requirements.txt
+
+        - name: Running test
+          run: |
+            pytest tests/account_tests.py

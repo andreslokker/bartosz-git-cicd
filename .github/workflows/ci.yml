@@ -33,6 +33,12 @@ jobs:
           run: |
             pip install -r requirements.txt
 
-        - name: Running test
-          run: |
-            pytest tests/account_tests.py
+        - name: Run tests
+          run: pytest ./tests/account_tests.py  --junitxml=junit/test-results-${{ matrix.os }}-${{ matrix.python-version }}.xml
+          
+        - name: Publish test results
+          if: ${{ always() }}
+          uses: EnricoMi/publish-unit-test-result-action@v2
+          with:
+            files: |
+              junit/test-results-${{ matrix.os }}-${{ matrix.python-version }}.xml
